@@ -4,6 +4,7 @@ from .models import mess, student, food, order
 
 @admin.register(mess)
 class messAdmin(admin.ModelAdmin):
+    list_display=['Name', 'Block']
     pass
 @admin.register(student)
 class studentAdmin(admin.ModelAdmin):

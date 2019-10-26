@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from Mess import views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.Home, name="Home"),
+    path('mess/<str:mess_id>/',views.Mess_details, name="Mess Details"),
 ]
