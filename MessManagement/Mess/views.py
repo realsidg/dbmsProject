@@ -4,11 +4,12 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
-from .models import mess
+from .models import mess, food, order, student
 
 def Home(request):
     messes=mess.objects.all()
-    return render(request, "Home.html", {"Mess": messes})
+    fooditems=food.objects.all()
+    return render(request, "Home.html", {"food": fooditems})
 
 def Mess_details(request, mess_id):
     messes=mess.objects.all()

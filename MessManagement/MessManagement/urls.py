@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from Mess import views
 
 
 urlpatterns = [
+    path(r'^login/$', auth_views.login, name='login'),
+    path(r'^logout/$', auth_views.logout, name='logout'),
     path('admin/', admin.site.urls),
     path('', views.Home, name="Home"),
     path('mess/<str:mess_id>/',views.Mess_details, name="Mess Details"),
