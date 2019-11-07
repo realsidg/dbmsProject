@@ -5,7 +5,7 @@ class student(models.Model):
     Student_id = models.CharField(max_length=100, primary_key=True)
     Name = models.CharField(max_length=100)
     Mess_id = models.ForeignKey('mess', on_delete=models.PROTECT)
-    Password = models.CharField(max_length=100)
+    Password = models.CharField(max_length=256)
     Balance = models.FloatField(max_length=100)
 
     def __str__(self):
@@ -35,7 +35,7 @@ class food(models.Model):
         return self.Name
 
 class order(models.Model):
-    Order_id= models.CharField(max_length=20, primary_key=True)
+    # Order_id= models.CharField(max_length=20, primary_key=True)
     Food_id= models.ForeignKey("food", on_delete=models.PROTECT)
     Time= models.DateField()
 

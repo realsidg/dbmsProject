@@ -16,7 +16,7 @@
 			<form action="/home	">
 			<input type="hidden" value="{{student.Student_id}}" name="sid">
 			<input type="text" class="form-control" name="q"><br>
-				<button class="btn btn-primary">Submit</button>
+				<button class="btn btn-dark">Search</button>
 			</form><br>
 
 			</div>		  
@@ -30,18 +30,20 @@
 
 		</div>
 		<br>
-		<form action="/order" method="POST">
+		<form action="/orders" method="GET">
+
 		{% for f in food %}
 		<div class="bg-info row">
 				<div class="fid col-2">{{f.Food_id}}</div>
 				<div class="fname col-6">{{f.Name}}</div>
 				<div class="price col-2">{{f.Cost}}</div>
-				<div class="price col-2">
-					<input type="number class="form-control"" name="{{f.Food_id}}_quantity" placeholder=0 width=2>
-				</div>
+				<input class="quantity col-2" min="0" name="{{f.Food_id}}" value="0" type="number">
+				
 		</div>
-		</form>
 		<br>
 		{%endfor%}
 	</div>
+	<input type='Submit' value="Click here to Order!" class="btn-primary btn col-12">
+	</form>
+	
 {%endblock%}
