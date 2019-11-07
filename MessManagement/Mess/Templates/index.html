@@ -33,7 +33,7 @@
 		<form action="/orders" method="GET">
 
 		{% for f in food %}
-		<div class="bg-info row">
+		<div class="bg-info row text-white">
 				<div class="fid col-2">{{f.Food_id}}</div>
 				<div class="fname col-6">{{f.Name}}</div>
 				<div class="price col-2">{{f.Cost}}</div>
@@ -43,6 +43,7 @@
 		<br>
 		{%endfor%}
 	</div>
+	<input type="hidden" value="{{student.Student_id}}" name="sid">
 	<input type='Submit' value="Click here to Order!" class="btn-primary btn col-12">
 	</form>
 	

@@ -44,7 +44,21 @@ def home(request):
     return render(request, "index.html",{'student':stud,'food':foodi})
 
 def orders(request):
-    return HttpResponse([i for i in request.GET])
+    cart=[]
+    qt=[]
+    total=0
+    print(request.GET.items)
+    for i,j in list(request.GET.items()):
+        if i!="sid":
+            if int(j)>0:
+                f= (food.objects.filter(Food_id=i)[0])
+                total+=int(f.Cost)*int(j)
+                quan=int(j)
+                tot=int(f.Cost)*int(j)
+                cart.append(f)
+                qt.append([quan,total])
+    stud=student.objects.filter(Student_id=request.GET['sid'])[0]
+    return render(request, 'Cart.html', {"cart":cart,"total":total,'qt':qt,'student':stud})
 
 def Mess_details(request, mess_id):
     messes=mess.objects.all()

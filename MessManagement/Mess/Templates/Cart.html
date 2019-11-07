@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{%block title%}Home{%endblock%}
+{%block body%}
+	<nav class="navbar navbar-light bg-dark text-white">
+		Your Mess is : {{student.Mess_id}}
+		<form class="form-inline">
+				Current Balance is : <b>{{student.Balance}}</b>
+		</form>
+	  </nav>
+    <br>
+    <h2 class="text-center font-weight-bold">Your Order</h2><br><br>
+    <div class="container-fluid">
+            <div class="bg-primary row font-weight-bold">
+                    <div class="fid col-2">Item Id</div>
+                    <div class="fname col-4">Item Name</div>
+                    <div class="price col-2">Item Cost</div>
+                    <!-- <div class="price col-2">Quantity</div>
+                    <div class="price col-2">Subtotal</div> -->
+            </div>
+            <br>
+            <form action="/orders" method="GET">
+    
+            {% for i in cart %}
+            <div class="bg-info row">
+                    <div class="fid col-2">{{i.Food_id}}</div>
+                    <div class="fname col-4">{{i.Name}}</div>
+                    <div class="price col-2">{{i.Cost}}</div>
+                    
+            </div>
+            <br>
+            {%endfor%}
+            <h4 class="text-center">Total Cost is: {{total}}</h3>
+        </div>
+	
+{%endblock%}
