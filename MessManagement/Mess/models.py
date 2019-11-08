@@ -19,13 +19,7 @@ class mess(models.Model):
 
     def __str__(self):
         return self.Name
-
-# InBuilt with Django
-# class admin(models.Model):
-#     Admin_id = models.CharField(max_length=20, primary_key=True)
-#     Username = models.CharField(max_length=20)
-#     Password = models.CharField(max_length=20)
-
+=
 class food(models.Model):
     Food_id= models.CharField(max_length=20, primary_key=True)
     Name= models.CharField(max_length=20)
@@ -35,16 +29,15 @@ class food(models.Model):
         return self.Name
 
 class order(models.Model):
-    # Order_id= models.CharField(max_length=20, primary_key=True)
     id = models.AutoField(primary_key=True)
     Time= models.DateField()
     Student_id= models.ForeignKey("student", on_delete=models.PROTECT)
     Mess_id = models.ForeignKey("mess", on_delete=models.PROTECT)
 
-    def __str__(self):
-        return self.id
 
 class cart(models.Model):
     Food_id= models.ForeignKey("food", on_delete=models.PROTECT)
     Order_id= models.ForeignKey("order", on_delete=models.PROTECT)
     quantity= models.IntegerField()
+    def __str__(self):
+        return str(self.Order_id)

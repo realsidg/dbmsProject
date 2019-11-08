@@ -24,5 +24,4 @@ urlpatterns = [
     path('', views.login, name="Login"),
     path('home/', views.home, name="Home"),
     path('orders/', views.orders, name="Orders"),
-    path('mess/<str:mess_id>/',views.Mess_details, name="Mess Details"),
 ]

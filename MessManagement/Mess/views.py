@@ -6,9 +6,11 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
+from django.db import connection
 
 
-from .models import mess, food, order, student, User
+from .models import mess, food, order, student, User, cart
 from .forms import SignInForm
 
 # url = reverse('Home')
@@ -44,8 +46,8 @@ def home(request):
     return render(request, "index.html",{'student':stud,'food':foodi})
 
 def orders(request):
-    cart=[]
-    qt=[]
+    cart1=[]
+    fq=[]
     total=0
     print(request.GET.items)
     for i,j in list(request.GET.items()):
@@ -55,13 +57,27 @@ def orders(request):
                 total+=int(f.Cost)*int(j)
                 quan=int(j)
                 tot=int(f.Cost)*int(j)
-                cart.append(f)
-                qt.append([quan,total])
+                fi=f.Food_id
+                cart1.append(f)
+                fq.append([quan,fi])
     stud=student.objects.filter(Student_id=request.GET['sid'])[0]
-    return render(request, 'Cart.html', {"cart":cart,"total":total,'qt':qt,'student':stud})
+    Student_id = student.objects.only('Student_id').get(Student_id=stud.Student_id)
+    ords= order(Time=datetime.now(), Student_id=Student_id, Mess_id=stud.Mess_id)
+    ords.save()
+    # ords.save()
+    # with connection.cursor() as cursor:
+    #     cursor.execute("INSERT INTO order values (Time=%s, Student_id=%s, Mess_id=%s);",[datetime.now(), stud.Student_id, str(stud.Mess_id)] )
+    #     row = cursor.fetchone()
 
-def Mess_details(request, mess_id):
-    messes=mess.objects.all()
-    return render(request, "Mess_details.html", {"Mess": messes})
+    for i,j in fq:
+        if(i>0):
+            Food_id = food.objects.only('Food_id').get(Food_id=j)
+            Order_id = order.objects.only('id').get(id=ords.id)
+            crt_item= cart(Order_id=Order_id, Food_id=Food_id, quantity=i) 
+            crt_item.save()
+    stud.Balance= stud.Balance - total
+    stud.save()
+    return render(request, 'Cart.html', {"cart":cart1,"total":total,'qt':fq,'student':stud,'ordid':ords.id})
+
 
 # Create your views here.

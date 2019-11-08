@@ -8,7 +8,7 @@
 		</form>
 	  </nav>
     <br>
-    <h2 class="text-center font-weight-bold">Your Order</h2><br><br>
+    <h2 class="text-center font-weight-bold">Your Order id {{ordid}}</h2><br><br>
     <div class="container-fluid">
             <div class="bg-primary row font-weight-bold">
                     <div class="fid col-2">Item Id</div>
@@ -29,7 +29,11 @@
             </div>
             <br>
             {%endfor%}
-            <h4 class="text-center">Total Cost is: {{total}}</h3>
+            <h4 class="text-center">Total Cost is: {{total}}</h3><br><br>
         </div>
-	
+        </form>
+        <form action="/home" method="GET">
+                <input type="hidden" value="{{student.Student_id}}" name="sid">
+                <button class="btn-dark col-12" type="submit">Click here to go back</button>
+        </form>
 {%endblock%}
